@@ -27,22 +27,19 @@
                 <th>Gender</th>
                 <th>Phone Number</th>
                 <th>Home Address</th>
-                <th>Email</th> 
-                <th>Job Title</th>
+                <th>Email</th>
                 <th>Joined Date</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
             @foreach($employees as $employee) <!-- $employees from EmployeeController 'employees', "($employees as $employee)"loops through each employee-->
                 <tr>
-                    <td>{{$employee->id}}</td>
                     <td>{{$employee->emp_name}}</td>
                     <td>{{$employee->birthday}}</td>
                     <td>{{$employee->gender}}</td>
                     <td>{{$employee->phone}}</td>
                     <td>{{$employee->address}}</td>
                     <td>{{$employee->email}}</td>
-                    <td>{{$employee->job_type}}</td>
                     <td>{{$employee->joined_date}}</td>
                     <td>                           <!--This $employee is passed to this 'employee' from route {employee},, "['employee' => $employee]" array -->
                         <a href="{{route('employee.edit', ['employee' => $employee])}}">Edit</a>

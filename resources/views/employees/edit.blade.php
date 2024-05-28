@@ -20,6 +20,8 @@
     <form method="post" action="{{ route('employee.update', ['employee' => $employee]) }}">
         @csrf
         @method('put')
+
+        
         <div>
             <label for="emp_name">Employee name: </label>
             <input type="text" name="emp_name" value="{{$employee->emp_name}}">
@@ -30,10 +32,7 @@
         </div><br>
         <div>
             <label for="gender">Gender: </label>
-            <select id="gender" name="gender" value="{{$employee->gender}}">
-                <option value=""></option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+            <input type="string" name="gender" value="{{$employee->gender}}">
             </select>
         </div><br>
         <div>
@@ -48,13 +47,7 @@
             <label for="email">Email Address: </label>
             <input type="string" name="email" value="{{$employee->email}}">
         </div><br>
-       <div>
-            <label for="job_type">Job Title : </label>
-            <select id="job_type" name="job_type" required>
-                <option value="cashier_employee">Cashier </option>
-                <option value="salon_employee">Salon worker</option>
-            </select>
-        </div><br>
+      
         <div>
             <label for="joined_date">Joined Date: </label>
             <input type="date" name="joined_date" value="{{$employee->joined_date}}">
