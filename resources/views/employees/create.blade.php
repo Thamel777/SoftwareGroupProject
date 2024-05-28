@@ -22,6 +22,7 @@
     <form method="post" action="{{ route('employee.store') }}">
         @csrf
         @method('post')
+        
         <div>
             <label for="emp_name">Employee name: </label>
             <input type="text" name="emp_name">
@@ -50,13 +51,7 @@
             <label for="email">Email Address: </label>
             <input type="string" name="email" >
         </div><br>
-        <div>
-            <label for="job_type">Job Title : </label>
-            <select id="job_type" name="job_type" required>
-                <option value="cashier_employee">Cashier</option>
-                <option value="salon_employee">Salon worker</option>
-            </select>
-        </div><br> 
+        
         <div>
             <label for="joined_date">Joined Date: </label>
             <input type="date" name="joined_date">
