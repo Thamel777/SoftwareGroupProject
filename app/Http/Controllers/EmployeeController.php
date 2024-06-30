@@ -7,6 +7,10 @@ use App\Models\Employee;
 
 class EmployeeController extends Controller
 {
+    public function EmployeeDashboard (){
+        return view('employees.employee_dashboard');
+    }
+    
     public function index(){
         $employees = Employee::all();   /**get all employees from db -> before view */
         return view('employees.index', ['employees' => $employees]); /**then pass employee to view */
@@ -40,7 +44,10 @@ class EmployeeController extends Controller
 
         $newEmployee->save();   //storing data into db
 
-        return redirect(route('employee.index'));   //after data is stored redirect into index page
+        //when update is finished
+        return redirect(route('employee.index'))->with('success','Employee details added successfully');
+        //with-> "message"
+        //return redirect(route('employee.index'));   //after data is stored redirect into index page
     }
 
             //this 'Employee' is module, '$employee' varialble employee from route
