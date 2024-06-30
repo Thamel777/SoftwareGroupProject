@@ -63,7 +63,4 @@ Route::middleware(['auth', 'customer'])->group(function () {    //'customer' fro
 
 // Publicly accessible routes
 Route::get('/homepage', [CustomerController::class, 'index'])->name('customer.index');
-
-
-
-
+    
