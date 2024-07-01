@@ -5,7 +5,7 @@ use App\Http\Controllers\ProfileController;
 Use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\CustomerController;
-
+use App\Http\Controllers\ProductController;
 
 
 Route::get('/', function () {
@@ -47,6 +47,15 @@ Route::middleware(['auth', 'employee'])->group(function () {    //'employee' fro
     Route::get('/employee/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/employee/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/employee/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    //product routes
+    Route::get ('/product',[ProductController::class,'index'])->name('product.index');/*path where the view file is located*/
+    Route::get ('/product/create',[ProductController::class,'create'])->name('product.create');
+    Route::post ('/product',[ProductController::class,'store'])->name('product.store');
+    Route::get ('/product/{product}/edit',[ProductController::class,'edit'])->name('product.edit'); //edit is the fuction
+    Route::put ('/product/{product}/update',[ProductController::class,'update'])->name('product.update'); 
+    Route::delete ('/product/{product}/delete',[ProductController::class,'delete'])->name('product.delete'); 
+
 });
 
 //Customer routes
