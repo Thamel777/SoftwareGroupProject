@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('Category');
+            $table->string('name');
+            $table->string('category');
             $table->string('color');
-            $table->string('size'); 
-            $table->string('description');
+            $table->string('size');
+            $table->integer('quantity');
             $table->decimal('initial_price');
-            $table->decimal('last_rental_price');
+            $table->decimal('last_rented_price');
+            $table->text('description');
             $table->timestamps();
         });
     }
@@ -30,4 +32,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('products');
     }
+
+    
 };
