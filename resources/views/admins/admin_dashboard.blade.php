@@ -12,6 +12,11 @@
                     {{ __("You're logged in!") }}
                 </div>
             </div>
+            <div class="mt-4">
+                <a href="{{ route('register') }}" class="btn btn-primary">
+                    Register Employee
+                </a>
+            </div>
         </div>
     </div>
 </x-app-layout>

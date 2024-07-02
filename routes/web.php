@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 Use App\Http\Controllers\AdminController;
@@ -10,7 +12,10 @@ use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
+
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
 // Common dashboard route if needed
 Route::get('/dashboard', function () {
@@ -28,6 +33,10 @@ Route::middleware(['auth', 'admin'])->group(function (){    //'admin' from alias
     Route::patch('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('admin.profile.destroy');
 
+    //register routes
+    Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::post('register', [RegisteredUserController::class, 'store']);
+    
     // Employee management routes (accessible only by admins)
     /**get for retrieving, post for storing, put for updating */
     Route::get('/employee', [EmployeeController::class, 'index'])->name('employee.index');
@@ -72,4 +81,4 @@ Route::middleware(['auth', 'customer'])->group(function () {    //'customer' fro
 
 // Publicly accessible routes
 Route::get('/homepage', [CustomerController::class, 'index'])->name('customer.index');
-    
+     
