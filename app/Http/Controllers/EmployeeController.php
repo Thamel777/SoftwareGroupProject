@@ -28,7 +28,8 @@ class EmployeeController extends Controller
             'phone' => 'required|string|digits:10|unique:employees',
             'address' => 'required|string|max:255|unique:employees',
             'email' => 'required|string|email|max:255|unique:employees',
-            'joined_date' => 'required|date|before_or_equal:today'
+            'joined_date' => 'required|date|before_or_equal:today',
+            'photo' => 'mimes:png,jpeg,jpg|max:2048',
         ], [
             //Message
             'birthday.before' => 'The employee must be at least 18 years old.',
@@ -46,6 +47,14 @@ class EmployeeController extends Controller
         $newEmployee->email = $data['email'];
         $newEmployee->joined_date = $data['joined_date'];
 
+        // Handle the file upload
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $fileName = time() . '_' . $photo->getClientOriginalName();
+            $photo->storeAs('public/photos', $fileName);
+            $newEmployee->photo = 'photos/' . $fileName; // Store the path in the database
+        }
+
         $newEmployee->save();   //storing data into db
 
         //when adding is finished
@@ -62,7 +71,7 @@ class EmployeeController extends Controller
             //this 'Employee' is module, '$employee' varialble employee from route {employee}
     public function update(Employee $employee, Request $request) { //we want to get info from form, so "Request $request"
             //in update, have to validate
-            $data = $request->validate([    //$data is data we recieve from the form
+        $data = $request->validate([    //$data is data we recieve from the form
             // 'emp_id' => 'required|string|max:5|unique:employees',
             'emp_name' => 'required|string|max:255',
             'birthday' => ['required', 'date', 'before:18 years ago'],
@@ -70,7 +79,8 @@ class EmployeeController extends Controller
             'phone' => 'required|string|digits:10|unique:employees',
             'address' => 'required|string|max:255|unique:employees',
             'email' => 'required|string|email|max:255',
-            'joined_date' => 'required|date|before_or_equal:today'
+            'joined_date' => 'required|date|before_or_equal:today',
+            'photo' => 'nullable|mimes:png,jpeg,jpg|max:2048',
             ], [
                 //Message
                 'birthday.before' => 'The employee must be at least 18 years old.',
@@ -88,6 +98,20 @@ class EmployeeController extends Controller
         $employee->email = $data['email'];
         $employee->joined_date = $data['joined_date'];
 
+        // Handle the file upload
+    if ($request->hasFile('photo')) {
+        // Delete the old photo if it exists
+        if ($employee->photo) {
+            Storage::delete('public/' . $employee->photo);
+        }
+
+        // Store the new photo
+        $photo = $request->file('photo');
+        $fileName = time() . '_' . $photo->getClientOriginalName();
+        $photo->storeAs('public/photos', $fileName);
+        $employee->photo = 'photos/' . $fileName; // Update the path in the database
+    }
+    
         $employee->save();
 
         //when update is finished
