@@ -8,6 +8,7 @@ Use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Mail; 
 
 
 Route::get('/', function () {
@@ -82,3 +83,13 @@ Route::middleware(['auth', 'customer'])->group(function () {    //'customer' fro
 // Publicly accessible routes
 Route::get('/homepage', [CustomerController::class, 'index'])->name('customer.index');
      
+use App\Http\Controllers\AppointmentController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('appointments', [AppointmentController::class, 'index'])->name('appointments.index');
+    Route::get('appointments/create', [AppointmentController::class, 'create'])->name('appointments.create');
+    Route::post('appointments', [AppointmentController::class, 'store'])->name('appointments.store');
+    Route::get('appointments/{appointment}/edit', [AppointmentController::class, 'edit'])->name('appointments.edit');
+    Route::put('appointments/{appointment}', [AppointmentController::class, 'update'])->name('appointments.update');
+    Route::delete('/{appointment}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
+});
