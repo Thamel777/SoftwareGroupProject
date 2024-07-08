@@ -124,4 +124,9 @@ class EmployeeController extends Controller
         return redirect(route('employee.index'))->with('success','Employee removed successfully');
 
     }
+    //function to register employee
+    public function register()
+    {
+        return view('auth.register');
+    }
 }
